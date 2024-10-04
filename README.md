@@ -2,6 +2,8 @@
 
 **Note**: This setup is purely for **demo purposes only** and should not be used in production environments. The goal is to demonstrate how OpenObserve can be used for observability and log ingestion, and how the React app integrates with it for real user monitoring (RUM).
 
+![Real User Monitoring Flow](./assets/rum.png)
+
 This repository contains two directories:
 - `user-portal-app`: A React app for the user portal.
 - `openobserve-setup`: A script to automatically set up OpenObserve for log ingestion and observability.
