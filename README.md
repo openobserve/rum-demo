@@ -16,6 +16,15 @@ This repository contains two directories:
   - **Git**
   - **curl**
 
+### Note for Non-macOS Users
+
+The provided setup script is designed to work on **macOS**. If you are using a different operating system, please refer to the official OpenObserve documentation for instructions on setting it up manually:
+
+[OpenObserve Self-hosted Installation Guide](https://openobserve.ai/docs/quickstart/#self-hosted-installation)
+
+You can still use the React app as described below after OpenObserve is installed.
+
+
 ## Getting Started
 
 ### Step 1: Set Up OpenObserve
