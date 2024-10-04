@@ -20,7 +20,7 @@ This repository contains two directories:
 
 The provided setup script is designed to work on **macOS**. If you are using a different operating system, please refer to the official OpenObserve documentation for instructions on setting it up manually:
 
-[OpenObserve Self-hosted Installation Guide](https://openobserve.ai/docs/quickstart/#self-hosted-installation)
+<a href="https://openobserve.ai/docs/quickstart/#self-hosted-installation" target="_blank">OpenObserve Self-hosted Installation Guide</a>
 
 You can still use the React app as described below after OpenObserve is installed.
 
