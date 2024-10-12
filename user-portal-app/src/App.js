@@ -5,8 +5,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
 import Settings from "./components/Settings";
-import { openobserveRum } from "@openobserve/browser-rum";
-import { openobserveLogs } from "@openobserve/browser-logs";
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -16,60 +14,80 @@ function App() {
     setOpen(state);
   };
 
-  // OpenObserve RUM and Logs initialization
+  // Load external RUM and Logs scripts
   useEffect(() => {
-    const options = {
-      clientToken: '',
-      applicationId: 'web-application-id',
-      site: 'localhost:5080',
-      service: 'my-web-application',
-      env: 'production',
-      version: '0.0.1',
-      organizationIdentifier: 'default',
-      insecureHTTP: true,
-      apiVersion: 'v1',
+    const loadScript = (url) => {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = url;
+        script.async = true;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.body.appendChild(script);
+      });
     };
 
-    // Initialize RUM
-    openobserveRum.init({
-      applicationId: options.applicationId,
-      clientToken: options.clientToken,
-      site: options.site,
-      organizationIdentifier: options.organizationIdentifier,
-      service: options.service,
-      env: options.env,
-      version: options.version,
-      trackResources: true,
-      trackLongTasks: true,
-      trackUserInteractions: true,
-      apiVersion: options.apiVersion,
-      insecureHTTP: options.insecureHTTP,
-      defaultPrivacyLevel: 'allow'
-    });
+    // Load both RUM and Logs scripts
+    Promise.all([
+      loadScript("https://rum.openobserve.ai/openobserve-rum.js"),
+      loadScript("https://rum.openobserve.ai/openobserve-logs.js"),
+    ])
+      .then(() => {
+        const options = {
+          clientToken: 'rumw7Qb37Api2O7MxOE',
+          applicationId: 'web-application-id',
+          site: 'localhost:5080',
+          service: 'my-web-application',
+          env: 'production',
+          version: '0.0.1',
+          organizationIdentifier: 'default',
+          insecureHTTP: true,
+          apiVersion: 'v1',
+        };
 
-    // Initialize Logs
-    openobserveLogs.init({
-      clientToken: options.clientToken,
-      site: options.site,
-      organizationIdentifier: options.organizationIdentifier,
-      service: options.service,
-      env: options.env,
-      version: options.version,
-      forwardErrorsToLogs: true,
-      insecureHTTP: options.insecureHTTP,
-      apiVersion: options.apiVersion,
-    });
+        // Initialize RUM
+        window.OpenObserveRUM.openobserveRum.init({
+          applicationId: options.applicationId,
+          clientToken: options.clientToken,
+          site: options.site,
+          organizationIdentifier: options.organizationIdentifier,
+          service: options.service,
+          env: options.env,
+          version: options.version,
+          trackResources: true,
+          trackLongTasks: true,
+          trackUserInteractions: true,
+          apiVersion: options.apiVersion,
+          insecureHTTP: options.insecureHTTP,
+          defaultPrivacyLevel: 'allow'
+        });
 
-    // Set user context for RUM
-    openobserveRum.setUser({
-      id: "1",
-      name: "Captain Hook",
-      email: "captainhook@example.com",
-    });
+        // Initialize Logs
+        window.OpenObserveLogs.openobserveLogs.init({
+          clientToken: options.clientToken,
+          site: options.site,
+          organizationIdentifier: options.organizationIdentifier,
+          service: options.service,
+          env: options.env,
+          version: options.version,
+          forwardErrorsToLogs: true,
+          insecureHTTP: options.insecureHTTP,
+          apiVersion: options.apiVersion,
+        });
 
-    // Start session replay recording
-    openobserveRum.startSessionReplayRecording();
+        // Set user context for RUM
+        window.OpenObserveRUM.openobserveRum.setUser({
+          id: "1",
+          name: "Captain Hook",
+          email: "captainhook@example.com",
+        });
 
+        // Start session replay recording
+        window.OpenObserveRUM.openobserveRum.startSessionReplayRecording();
+      })
+      .catch((error) => {
+        console.error("Failed to load OpenObserve RUM/Logs scripts", error);
+      });
   }, []);
 
   return (
@@ -115,4 +133,3 @@ function App() {
 }
 
 export default App;
-

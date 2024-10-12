@@ -16,6 +16,10 @@ This repository contains two directories:
   - **Git**
   - **curl**
 
+## OpenObserve RUM CDN URLs
+<a href="https://rum.openobserve.ai/openobserve-rum.js" target="_blank">OpenObserve CDN RUM</a>
+<a href="https://rum.openobserve.ai/openobserve-logs.js" target="_blank">OpenObserve CDN LOGS</a>
+
 ### Note for Non-macOS Users
 
 The provided setup script is designed to work on **macOS**. If you are using a different operating system, please refer to the official OpenObserve documentation for instructions on setting it up manually:
